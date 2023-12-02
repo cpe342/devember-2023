@@ -83,41 +83,49 @@ class Board extends Component {
     this.setState({ board, hasWon });
   }
 
-  render() {
-    if (this.state.hasWon) {
-      // Display winning message
-      return (
-        <h1>You Won!!!</h1>
-      )
-    } else {
-      // Display game board
-      let tableBoard = [];
-      // Accumulate cell components in the board
-      for (let i = 0; i < this.props.nrows; i++) {
-        let row = [];
-        for (let j = 0; j < this.props.ncols; j++) {
-          const coordinate = `${i}-${j}`;
-          row.push(<Cell
-            key={coordinate}
-            isLit={this.state.board[i][j]}
-            flipCellsAroundMe={() => this.flipCellsAround(coordinate)}
-          ></Cell>)
-        }
-        tableBoard.push(<tr key={i}>{row}</tr>);
+  // Render game board or winning message depending on hasWon
+  makeTable() {
+    // Display game board
+    let tableBoard = [];
+    // Accumulate cell components in the board
+    for (let i = 0; i < this.props.nrows; i++) {
+      let row = [];
+      for (let j = 0; j < this.props.ncols; j++) {
+        const coordinate = `${i}-${j}`;
+        row.push(<Cell
+          key={coordinate}
+          isLit={this.state.board[i][j]}
+          flipCellsAroundMe={() => this.flipCellsAround(coordinate)}
+        ></Cell>)
       }
-
-      // Return table of cell components as board
-      return (
-        <div>
-          <h1>Lights Out</h1>
-          <table className="Board">
-            <tbody>
-              {tableBoard}
-            </tbody>
-          </table>
-        </div>
-      )
+      tableBoard.push(<tr key={i}>{row}</tr>);
     }
+    return (
+      <table className='Board'>
+        <tbody>{tableBoard}</tbody>
+      </table>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.hasWon ? (
+          <div className='winner'>
+            <span className='neon-orange'>YOU</span>
+            <span className='neon-blue'>WIN!</span>
+          </div>
+        ) : (
+          <div>
+            <div className='Board-title'>
+              <div className='neon-orange'>Lights</div>
+              <div className='neon-blue'>Out</div>
+            </div>
+            {this.makeTable()}
+          </div>
+        )}
+      </div>
+    );
   }
 }
 
