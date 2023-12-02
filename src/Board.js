@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Cell from "./Cell";
 import './Board.css';
 
-
 /** Game board of Lights out.
  *
  * Properties:
@@ -15,18 +14,6 @@ import './Board.css';
  *
  * - hasWon: boolean, true when board is all off
  * - board: array-of-arrays of true/false
- *
- *    For this board:
- *       .  .  .
- *       O  O  .     (where . is off, and O is on)
- *       .  .  .
- *
- *    This would be: [[f, f, f], [t, t, f], [f, f, f]]
- *
- *  This should render an HTML table of individual <Cell /> components.
- *
- *  This doesn't handle any clicks --- clicks are on individual cells
- *
  **/
 
 class Board extends Component {
@@ -50,10 +37,11 @@ class Board extends Component {
 
   createBoard() {
     let board = [];
-    console.log(`printing ${this.props.nrows} x ${this.props.ncols}`)
+    // Initialize board of nrows x ncols
     for (let i = 0; i < this.props.nrows; i++) {
       let row = [];
       for (let j = 0; j < this.props.ncols; j++) {
+        // Randomly determine isLit status of cell
         row.push(Math.random() < this.props.chanceLightStartsOn)
       }
       board.push(row);
@@ -64,66 +52,72 @@ class Board extends Component {
   /** handle changing a cell: update board & determine if winner */
 
   flipCellsAround(coord) {
-    console.log(`I am in flipCellsAround`);
     let { ncols, nrows } = this.props;
     let board = this.state.board;
     let [y, x] = coord.split("-").map(Number);
 
-
     function flipCell(y, x) {
       // if this coord is actually on board, flip it
-
       if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
+        console.log(`flipping ${x}-${y}`)
         board[y][x] = !board[y][x];
       }
     }
 
-    // TODO: flip this cell and the cells around it
-    // flip self
-    // flip north
-    // flip south
-    //flip east
-    //flip west
+    // Flip self
+    flipCell(y, x);
+    // Flip North
+    flipCell(y + 1, x);
+    // Flip South
+    flipCell(y - 1, x);
+    // Flip East
+    flipCell(y, x + 1);
+    // Flip West
+    flipCell(y, x - 1);
 
-    // win when every cell is turned off
-    // TODO: determine is the game has been won
+    // Player has won when every cell isLit === false
+    let hasWon = false;
+    hasWon = board.every(row => row.every(cell => !cell))
+    console.log(hasWon)
 
-    // TODO: write this method
-    // this.setState({ board, hasWon });
+    this.setState({ board, hasWon });
   }
 
-
-  /** Render game board or winning message. */
-
   render() {
-    let tableBoard = [];
-
-    for (let i = 0; i < this.props.nrows; i++) {
-      let row = [];
-      for (let j = 0; j < this.props.ncols; j++) {
-        const coordinate = `${i}-${j}`;
-        row.push(<Cell key={coordinate} isLit={this.state.board[i][j]} flipCellsAroundMe={() => this.flipCellsAround(coordinate)}></Cell>)
+    if (this.state.hasWon) {
+      // Display winning message
+      return (
+        <h1>You Won!!!</h1>
+      )
+    } else {
+      // Display game board
+      let tableBoard = [];
+      // Accumulate cell components in the board
+      for (let i = 0; i < this.props.nrows; i++) {
+        let row = [];
+        for (let j = 0; j < this.props.ncols; j++) {
+          const coordinate = `${i}-${j}`;
+          row.push(<Cell
+            key={coordinate}
+            isLit={this.state.board[i][j]}
+            flipCellsAroundMe={() => this.flipCellsAround(coordinate)}
+          ></Cell>)
+        }
+        tableBoard.push(<tr key={i}>{row}</tr>);
       }
-      tableBoard.push(<tr key={i}>{row}</tr>);
+
+      // Return table of cell components as board
+      return (
+        <div>
+          <h1>Lights Out</h1>
+          <table className="Board">
+            <tbody>
+              {tableBoard}
+            </tbody>
+          </table>
+        </div>
+      )
     }
-
-    // if the game is won, just show a winning msg & render nothing else
-
-    // TODO
-
-    // make table board
-    return (
-      <div>
-        <h1>Lights Out</h1>
-        <table className="Board">
-          <tbody>
-            {tableBoard}
-          </tbody>
-        </table>
-      </div>
-    )
-
-    // TODO
   }
 }
 
