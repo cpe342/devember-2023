@@ -1,0 +1,56 @@
+/* This CSS stylesheet was generated with the help of Chat-GPT 3.5 */
+
+/* Style the form container */
+form {
+    width: 300px;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    float: left;
+    /* Align the form to the left */
+}
+
+/* Clear the float to prevent other elements from wrapping around the form */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Style form input and label */
+div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input {
+    width: calc(100% - 16px);
+    /* Adjusted to account for padding and borders */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+}
+
+/* Style the submit button */
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

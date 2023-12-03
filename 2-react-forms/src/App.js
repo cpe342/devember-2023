@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import Boxlist from './Boxlist'
+
 class App extends Component {
   render() {
     return (
       <div>
-        <h1>Forms Project</h1>
+        <Boxlist></Boxlist>
       </div>
     );
   }
