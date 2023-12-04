@@ -1,0 +1,13 @@
+#Todo {
+    border: 1px dotted black;
+    display:flex;
+    /* Vertical align the elements to the center */
+}
+
+h1 {
+    margin: 0;
+}
+.completed{
+    text-decoration: line-through;
+    color:lightgray;
+}

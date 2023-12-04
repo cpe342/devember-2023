@@ -23,7 +23,6 @@ class Boxlist extends Component {
 
     // Remove box based on id
     removeBox(id) {
-        console.log('in removebox function')
         this.setState(state => ({
             boxes: state.boxes.filter((e) => e.id !== id)
         }));
