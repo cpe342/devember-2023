@@ -5,3 +5,4 @@
 4. Yahtzee [Pt 1] (React)
 5. Yahtzee [Pt 2] (React)
 6. Deck of Cards (React) 
+7. Dad Jokes (React)
