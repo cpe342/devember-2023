@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Joke from './Joke';
-import './JokeList.css'
+import './JokeList.css';
 import { v4 as uuid } from 'uuid';
 
 class JokeList extends Component {
@@ -69,6 +69,7 @@ class JokeList extends Component {
                 </div>
             )
         }
+        let jokes = this.state.jokes.sort((a, b) => b.votes - a.votes);
         return (
             <div className='JokeList'>
                 <div className='JokeList-sidebar'>
@@ -77,7 +78,7 @@ class JokeList extends Component {
                     <button className='JokeList-getmore' onClick={this.handleClick}>New Jokes</button>
                 </div>
                 <div className='JokeList-jokes'>
-                    {this.state.jokes.map(j => (
+                    {jokes.map(j => (
                         <Joke key={j.id} text={j.text} votes={j.votes} upVote={() => this.handleVote(j.id, 1)} downVote={() => this.handleVote(j.id, -1)}></Joke>
                     ))}
                 </div>

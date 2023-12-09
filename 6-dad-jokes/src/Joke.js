@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Joke.css';
 
 class Joke extends Component {
-
     getColor() {
         if (this.props.votes >= 15) {
             return "#4CAF50";
