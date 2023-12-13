@@ -7,3 +7,4 @@
 6. Deck of Cards (React) 
 7. Dad Jokes [Pt 1] (React)
 8. Dad Jokes [Pt 2] (React)
+9. Client Side Routing - React Router (React)
