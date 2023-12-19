@@ -9,3 +9,4 @@
 8. Dad Jokes [Pt 2] (React)
 9. Client Side Routing - React Router (React)
 10. Vending Machine - React Router (React)
+11. React Router Patterns [Pt 1] (React)
